@@ -27,14 +27,8 @@ render() {
     <Header 
       changeTab={this.onChangeTab.bind(this)}
       initialTab={this.state.currentTab}  />
-    <div className="container">
-      <div className="row">
-        <div className="col-sm">
           <Home />
           <Lists />
-        </div>
-      </div>
-    </div> 
   </div>
   )
 }

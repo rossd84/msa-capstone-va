@@ -24,7 +24,6 @@ export class Header extends Component {
     this.props.changeTab(this.state.tab)
   }
 
-
   render() {
     return(
       <header className="container bg-dark">
@@ -44,17 +43,6 @@ export class Header extends Component {
               <Tab eventKey="lists" title="Lists" />
               <Tab eventKey="calendar" title="Calendar" />
             </Tabs>
-            {/* <ul className="nav nav-tabs">
-            <li className="nav-item">
-              <a className="nav-link active" href="#">Home</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Lists</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" href="#">Calendar</a>
-            </li>
-          </ul>  */}
           </div>
         </div>
       </header>
