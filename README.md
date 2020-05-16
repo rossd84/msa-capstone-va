@@ -1,0 +1,1 @@
+This project is a capstone project for the end of course at Mississippi Coding Academies.

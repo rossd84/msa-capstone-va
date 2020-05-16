@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.content {
+  width: 250px;
+  height: 60px;
+  /* border: 2px solid black; */
+}
+button {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  margin: 0;
+  top: 10px;
+  cursor: pointer;
+}
+
+/* .plus {
+  border-radius: 50% 0 0 50%;
+} */
+
+/* .minus {
+  border-radius: 0 50% 50% 0;
+} */
+
+input {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  border: none;
+  font-size: 30px;  
+}
