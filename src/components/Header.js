@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Tabs } from 'react-bootstrap'
 import { Tab } from 'react-bootstrap'
-import { Lists } from './Lists'
 
 export class Header extends Component {
   constructor(props) {
@@ -11,16 +10,27 @@ export class Header extends Component {
     }
   }
 
-    onChangeTab() {
-      this.props.changeTab(this.state.tab)
+  handleSelect(key) {
+    switch (key) {
+      case 'lists':
+        this.setState({ tab: 'lists'});
+        break;
+      case 'calendar':
+        this.setState({ tab: 'calendar'});
+        break;
+      default:
+        this.setState({ tab: 'home'})
     }
+    this.props.changeTab(this.state.tab)
+  }
+
 
   render() {
     return(
       <header className="container bg-dark">
         <div className="row">
           <div className="col-sm text-center">
-          <a className="navbar-brand" href="#">Personal Assistant</a>
+          <a className="navbar-brand" href="/">Personal Assistant</a>
           </div>
         </div>
         <div className="row">
@@ -28,7 +38,7 @@ export class Header extends Component {
             <Tabs 
               defaultActiveKey="home" 
               id="uncontrolled-tab-example"
-              onSelect={this.onChangeTab.bind(this)}
+              onSelect={this.handleSelect.bind(this)}
             >
               <Tab eventKey="home" title="Home" />
               <Tab eventKey="lists" title="Lists" />

@@ -9,20 +9,24 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      initialTab: 'home'
+      currentTab: 'home'
     }
   }
 
   onChangeTab(newTab) {
     this.setState({
-      initialTab: newTab
+      currentTab: newTab
     })
+    console.log('app state:', this.state);
+    
   }
 
 render() {
   return (
   <div>
-    <Header changeTab={this.onChangeTab.bind(this)}  />
+    <Header 
+      changeTab={this.onChangeTab.bind(this)}
+      initialTab={this.state.currentTab}  />
     <div className="container">
       <div className="row">
         <div className="col-sm">
