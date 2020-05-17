@@ -36,7 +36,6 @@ export class Header extends Component {
           <div className="col-sm">
             <Tabs 
               defaultActiveKey="home" 
-              id="uncontrolled-tab-example"
               onSelect={this.handleSelect.bind(this)}
             >
               <Tab eventKey="home" title="Home" />

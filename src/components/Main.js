@@ -4,7 +4,15 @@ class Main extends Component {
 
   render() {
     return (
-      <h1 className="display-4">Welcome!</h1>
+      <>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-sm'>
+              <h1 className="display-4">Welcome!</h1>
+            </div>
+          </div>
+        </div>
+      </>
     )
   }
 }

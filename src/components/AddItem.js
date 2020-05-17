@@ -15,12 +15,24 @@ export function AddItem() {
       <Collapse in={open}>
         <Form>
           <Form.Group as={Row}>
-            <Form.Row>
-              <Form.Label column lg={2}>
-                Item
-              </Form.Label>
+            <Form.Row width='100%'>
               <Col>
-                <Form.Control type="text" placeholder="Item" />
+                <Form.Label column>
+                  Item
+                </Form.Label>
+              </Col>              
+              <Col className="col-sm-8">
+                <Form.Control type="text" placeholder="e.g. Go to grocery store" />
+              </Col>
+            </Form.Row>
+            <Form.Row>
+              <Col>
+                <Form.Label column>
+                  Due By
+                </Form.Label>
+              </Col>
+              <Col>
+                <Form.Control type="date" />
               </Col>
             </Form.Row>
           </Form.Group>

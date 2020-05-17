@@ -17,19 +17,19 @@ class App extends Component {
     this.setState({
       currentTab: newTab
     })
-    console.log('app state:', this.state);
-    
+  console.log('app state:', this.state);    
   }
 
 render() {
   return (
-  <div>
+  <>
     <Header 
       changeTab={this.onChangeTab.bind(this)}
-      initialTab={this.state.currentTab}  />
-          <Home />
-          <Lists />
-  </div>
+      initialTab={this.state.currentTab} 
+    />
+    <Home />
+    <Lists />
+  </>
   )
 }
 }
