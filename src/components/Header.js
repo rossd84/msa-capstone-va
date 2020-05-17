@@ -13,15 +13,14 @@ export class Header extends Component {
   handleSelect(key) {
     switch (key) {
       case 'lists':
-        this.setState({ tab: 'lists'});
+        this.props.changeTab({ tab: 'lists'});
         break;
       case 'calendar':
-        this.setState({ tab: 'calendar'});
+        this.props.changeTab({ tab: 'calendar'});
         break;
       default:
-        this.setState({ tab: 'home'})
+        this.props.changeTab({ tab: 'home'})
     }
-    this.props.changeTab(this.state.tab)
   }
 
   render() {
