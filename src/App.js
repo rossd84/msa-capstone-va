@@ -34,6 +34,7 @@ render() {
     { currentPage.tab === 'lists' 
       ? <Lists 
           listItems={this.state.listItems}
+          currentTab={this.state.currentTab}
         />
       : currentPage.tab === 'calendar'
       ? <Calendar />

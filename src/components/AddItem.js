@@ -1,52 +1,76 @@
-import React, { useState } from 'react'
-import { Button, Collapse, Form, FormControl, Col, InputGroup } from 'react-bootstrap';
+import React, { Component } from 'react'
+import { Collapse, Button } from 'react-bootstrap'
 
-export function AddItem() {
-  const [open, setOpen] = useState(false);
 
-  return(
-    <>
-      <Button
-        onClick={() => setOpen(!open)}
-        aria-controls="collapse-form"
-        aria-expanded={open}
-        block
-      >Add Item</Button>
-      <Collapse in={open}>
-        <Form>
-          <Form.Group>
-            <Form.Row width='100%'>
-              <Col className="col-sm-2">
-                <Form.Label column>
-                  Item
-                </Form.Label>
-              </Col>              
-              <Col className="col-sm-10">
-                <Form.Control type="text" placeholder="e.g. Go to grocery store" />
-              </Col>
-            </Form.Row>
-            <Form.Row>
-              <Col className="col-sm-2">
-                <Form.Label column>
-                  Due By
-                </Form.Label>
-              </Col>
-              <Col className="col-sm-2">
-                <Form.Control type="date" />
-              </Col>
-              <Col className="col-sm-2">
-                <Form.Control type="time" />
-              </Col>
-            </Form.Row>
-          </Form.Group>
-          <Form.Check inline label="Personal" type='radio' id='personal' />
-          <Form.Check inline label="Work" type='radio' id='work' />
-          <Button 
-            type="submit"
-            block
-          >Submit</Button>
-        </Form>
+export class AddItem extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { 
+      username: '',
+      open: false 
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleToggle() {
+    this.setState({ open: !this.state.open})
+    console.log(this.state.open)
+  }
+
+
+  handleChange(event) {
+    this.setState({ value: event.target.value })
+  }
+
+  handleSubmit(event) {
+    console.log(event)
+    event.preventDefault()
+  }
+
+  render() {
+    return (
+      <>
+        <Button
+        onClick={this.handleToggle.bind(this)}
+        aria-controls="example-collapse-text"
+        aria-expanded={this.state.open}
+      >
+      Add
+      </Button>
+      <Collapse in={this.state.open}>
+        <form onSubmit={this.handleSubmit}>
+          <div className="row">
+            <div className="col-sm">
+              <label>Task</label>          
+              <input
+                type="text"
+                value={this.state.username}
+                onChange={this.handleChange}
+              />            
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm">
+              <label>Due date</label>
+              <input type="date" />
+              <input type="time" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm">
+              <label>
+                <input type="radio" id="personalItem" name="listType" />Personal
+              </label>
+              <label>
+                <input type="radio" id="workItem" name="listType" />Work
+              </label>
+            </div>
+          </div>
+          <input className="btn btn-primary" type="submit" value="Submit" />
+        </form>
       </Collapse>
-    </>  
-  )
+      </>
+    )
+  }
 }
