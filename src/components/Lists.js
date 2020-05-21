@@ -6,7 +6,9 @@ import CardDeck from 'react-bootstrap/CardDeck'
 export class Lists extends Component {
 
   render() {
-    const listSample = this.props.listItems.map((item, index) => <li key={index}>{item}</li>)
+    const personalList = this.props.personalList.map((item, index) => <li className='list-group-item' key={index}>{item.item}</li>)
+    const workList = this.props.workList.map((item, index) => <li className='list-group-item' key={index}>{item.item}</li>)
+
     return(
       <>
         <div className="container">
@@ -23,10 +25,9 @@ export class Lists extends Component {
               <Card>
                 <Card.Body>
                   <Card.Title className='text-center'>Work</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
                   <Card.Text as='div'>
-                    <ul>
-                      {listSample}
+                    <ul className='list-group'>
+                      {personalList}
                     </ul>
                   </Card.Text>
                 </Card.Body>
@@ -34,12 +35,9 @@ export class Lists extends Component {
               <Card>
               <Card.Body>
                   <Card.Title className="text-center">Personal</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
                   <Card.Text as="div">
                     <ul>
-                      <li>
-                        Sample 1
-                      </li>
+                      {workList}
                     </ul>
                   </Card.Text>
                 </Card.Body>
