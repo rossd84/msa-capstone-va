@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Header } from './components/Header'
-import Home from './components/Main'
+import Main from './components/Main'
 import { Lists } from './components/Lists'
 import { Calendar } from './components/Calendar'
+import AddItem from './components/AddItem'
 
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
     super(props)
     this.state = {
       currentTab: 'home',
+      user: [],
       personalList: [],
       workList: [],
       fullList: [],
@@ -22,11 +24,20 @@ class App extends Component {
     }
   }
 
-
   componentDidMount() {
     this.getItems();
+    this.getUser();
     this.getPersonalList();
     this.getWorkList();
+  }
+
+  getUser = _ => {
+    fetch(`http://localhost:4000/user?username=${'guest'}`)
+    .then(response => response.json())
+    .then(response => this.setState({
+      user: response.data
+    }))
+    .catch(err => console.log(err))
   }
   
   getItems = _ => {
@@ -72,23 +83,28 @@ class App extends Component {
   console.log('app state:', this.state);    
   }
 
+  onChangeItems(newItems) {
+    console.log(newItems)
+  }
 
 render() {
   let currentPage = this.state.currentTab;
-  console.log('render currentPage', currentPage)
+  let user = this.state.user;
+  console.log(user);
+  
   return (
     <>
       <Header 
         changeTab={this.onChangeTab.bind(this)}
         initialTab={this.state.currentTab} 
       />
-
       <div className='container'>
         <div className="row">
           <div className="col-sm">
+            {/* <AddItem /> */}
             <form>
               <div className="form-group">
-                <label for="formText">Task
+                <label htmlFor="formText">Task
                   <input 
                     value={this.state.items.item}
                     onChange={e => this.setState({ items: { ...this.state.items, item: e.target.value }})} 
@@ -108,7 +124,7 @@ render() {
                   id="personalItemCheck"
                   checked              
                 />
-                <label class="form-check-label" for="personalItemCheck">Personal Item</label>
+                <label className="form-check-label" htmlFor="personalItemCheck">Personal Item</label>
               </div>
               <div className='form-check'>
                 <input 
@@ -119,19 +135,12 @@ render() {
                   className="form-check-input"
                   id="workItemCheck" 
                 />
-                <label class="form-check-label" for="workItemCheck">Work Item</label>
+                <label className="form-check-label" htmlFor="workItemCheck">Work Item</label>
               </div>
               <button type='submit' className='btn btn-primary' onClick={this.addItem}>Add</button>
-            </form>
-            
-            
+            </form>            
           </div>
         </div>
-        {/* <div className='row'>
-          <div className='col-sm'>
-            {this.state.fullList.map(this.renderPersonalList)}
-          </div>
-        </div> */}
       </div>
         
       { currentPage.tab === 'lists' 
@@ -139,10 +148,13 @@ render() {
             personalList={this.state.personalList}
             workList={this.state.workList}
             currentTab={this.state.currentTab}
+            items={this.state.items}
+            changeItems={this.onChangeItems.bind(this)}
           />
         : currentPage.tab === 'calendar'
         ? <Calendar />
-        : <Home />
+        : <Main
+          user={this.state.user} />
       }
     </>
   )
