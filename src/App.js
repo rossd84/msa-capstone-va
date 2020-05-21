@@ -11,8 +11,19 @@ class App extends Component {
     super(props)
     this.state = {
       currentTab: 'home',
-      listItems: ['Sample 1', 'Sample 2', 'Sample 3', 'Sample 4', 'Sample 5']
+      listItems: ['Sample 1', 'Sample 2', 'Sample 3', 'Sample 4', 'Sample 5'],
+      apiResponse: ''
     }
+  }
+
+  callAPI() {
+    fetch('http://localhost:3000/api')
+      .then(res => res.text())
+      .then(res => this.setState({apiResponse: res}))
+  }
+
+  componentWillMount() {
+    this.callAPI()
   }
 
   onChangeTab(newTab) {
@@ -31,6 +42,7 @@ render() {
       changeTab={this.onChangeTab.bind(this)}
       initialTab={this.state.currentTab} 
     />
+    <p>{this.state.apiResponse}</p> {/*Temporary while getting api connected*/}
     { currentPage.tab === 'lists' 
       ? <Lists 
           listItems={this.state.listItems}
