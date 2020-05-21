@@ -11,20 +11,27 @@ class App extends Component {
     super(props)
     this.state = {
       currentTab: 'home',
-      listItems: ['Sample 1', 'Sample 2', 'Sample 3', 'Sample 4', 'Sample 5'],
-      apiResponse: ''
+      personalList: [],
+      workList: [],
+      fullList: [],
     }
   }
 
-  callAPI() {
-    fetch('http://localhost:3000/api')
-      .then(res => res.text())
-      .then(res => this.setState({apiResponse: res}))
+
+  componentDidMount() {
+    this.getItems();
+  }
+  
+  getItems = _ => {
+    fetch('http://localhost:4000/items')
+    .then(response => response.json())
+    .then(response => this.setState({
+      fullList: response.data
+    }))
+    .catch(err => console.log(err))
   }
 
-  componentWillMount() {
-    this.callAPI()
-  }
+  renderPersonalList = ({ item_id, item })=> <div key={item_id}>{item}</div>;
 
   onChangeTab(newTab) {
     this.setState({
@@ -33,31 +40,28 @@ class App extends Component {
   console.log('app state:', this.state);    
   }
 
+
 render() {
   let currentPage = this.state.currentTab;
   console.log('render currentPage', currentPage)
   return (
-  <>
-    <Header 
-      changeTab={this.onChangeTab.bind(this)}
-      initialTab={this.state.currentTab} 
-    />
-    <p>{this.state.apiResponse}</p> {/*Temporary while getting api connected*/}
-    { currentPage.tab === 'lists' 
-      ? <Lists 
-          listItems={this.state.listItems}
-          currentTab={this.state.currentTab}
-        />
-      : currentPage.tab === 'calendar'
-      ? <Calendar />
-      : <Home />
-    }
-
-    {/* <Home />
-    <Lists 
-      listItems={this.state.listItems}
-    /> */}
-  </>
+    <>
+      <Header 
+        changeTab={this.onChangeTab.bind(this)}
+        initialTab={this.state.currentTab} 
+      />
+      {this.state.fullList.map(this.renderPersonalList)}
+      { currentPage.tab === 'lists' 
+        ? <Lists 
+            personalList={this.state.personalList}
+            workList={this.state.workList}
+            currentTab={this.state.currentTab}
+          />
+        : currentPage.tab === 'calendar'
+        ? <Calendar />
+        : <Home />
+      }
+    </>
   )
 }
 }
